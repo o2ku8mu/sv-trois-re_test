@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>TROIS-RE MODEL × SVリーグ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-2: #141414;
+    --paper: #F4F1EA;
+    --paper-2: #E9E4D6;
+    --ink: #0A0A0A;
+    --accent: #E8FF3A;       /* 蛍光イエロー */
+    --accent-2: #FF4A1C;     /* バレーボール想起の赤橙 */
+    --muted: #8A8A8A;
+    --rule: rgba(244,241,234,0.14);
+    --rule-dark: rgba(10,10,10,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg);
+    color: var(--paper);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  body { font-feature-settings: "palt"; }
+  ::selection { background: var(--accent); color: var(--ink); }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .display { font-family: 'Anton', 'Noto Sans JP', sans-serif; font-weight: 400; letter-spacing: 0.01em; line-height: 0.95; }
+  .display-jp { font-family: 'Noto Serif JP', serif; font-weight: 900; letter-spacing: 0.02em; line-height: 1.1; }
+  .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: 0; }
+  .caps { text-transform: uppercase; letter-spacing: 0.12em; }
+  #root { min-height: 100vh; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="components/Hero.jsx"></script>
+<script type="text/babel" src="components/Crisis.jsx"></script>
+<script type="text/babel" src="components/Concept.jsx"></script>
+<script type="text/babel" src="components/Cycle.jsx"></script>
+<script type="text/babel" src="components/Cases.jsx"></script>
+<script type="text/babel" src="components/Cost.jsx"></script>
+<script type="text/babel" src="components/Moat.jsx"></script>
+<script type="text/babel" src="components/Roadmap.jsx"></script>
+<script type="text/babel" src="components/CTA.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+</body>
+</html>
