@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700;900&family=Noto+Serif+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0A0A0A;
@@ -14,8 +14,8 @@
     --paper: #F4F1EA;
     --paper-2: #E9E4D6;
     --ink: #0A0A0A;
-    --accent: #E8FF3A;       /* 蛍光イエロー */
-    --accent-2: #FF4A1C;     /* バレーボール想起の赤橙 */
+    --accent: #E8FF3A;
+    --accent-2: #FF4A1C;
     --muted: #8A8A8A;
     --rule: rgba(244,241,234,0.14);
     --rule-dark: rgba(10,10,10,0.12);
@@ -32,32 +32,1774 @@
   }
   body { font-feature-settings: "palt"; }
   ::selection { background: var(--accent); color: var(--ink); }
-  a { color: inherit; }
+  a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
   .display { font-family: 'Anton', 'Noto Sans JP', sans-serif; font-weight: 400; letter-spacing: 0.01em; line-height: 0.95; }
-  .display-jp { font-family: 'Noto Serif JP', serif; font-weight: 900; letter-spacing: 0.02em; line-height: 1.1; }
+  .display-jp { font-family: 'Noto Serif JP', serif; font-weight: 900; letter-spacing: 0.02em; }
   .mono { font-family: 'JetBrains Mono', monospace; letter-spacing: 0; }
-  .caps { text-transform: uppercase; letter-spacing: 0.12em; }
-  #root { min-height: 100vh; }
+
+  /* ── SECTION HEADER ── */
+  .section-head {
+    display: flex; align-items: center; gap: 24; margin-bottom: 16px;
+  }
+  .section-head .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.2em;
+    color: var(--accent); font-weight: 500;
+    white-space: nowrap;
+  }
+  .section-head .line { flex: 1; height: 1px; background: var(--rule); }
+  .section-head .jp { font-size: 13px; color: rgba(244,241,234,0.5); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    position: relative;
+    padding: 32px 48px 56px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--rule);
+    overflow: hidden;
+  }
+  .hero-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--paper);
+    opacity: 0.7;
+  }
+  .hero-topbar-left { display: flex; gap: 24px; align-items: center; }
+  .hero-topbar-right { display: flex; gap: 24px; }
+  .hero-dot {
+    display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 12px var(--accent);
+  }
+  .hero-bg-type {
+    position: absolute;
+    right: -40px; top: 80px;
+    font-size: clamp(180px, 26vw, 460px);
+    line-height: 0.85;
+    font-family: 'Anton', sans-serif;
+    color: rgba(244,241,234,0.04);
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 0;
+    user-select: none;
+  }
+  .hero-main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: end;
+    margin-top: 80px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 8px 14px;
+    border: 1px solid var(--paper);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .hero-badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+  .hero-h1 {
+    font-size: clamp(36px, 4.6vw, 76px);
+    line-height: 1.1;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 900;
+    letter-spacing: 0.005em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .hero-h1 .hl {
+    background: var(--accent); color: var(--ink);
+    padding: 0 .12em; margin-right: .02em;
+    display: inline;
+  }
+  .hero-sub {
+    margin-top: 32px;
+    font-size: 18px;
+    line-height: 1.8;
+    color: rgba(244,241,234,0.78);
+    max-width: 540px;
+  }
+  .hero-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 32px;
+    border-left: 1px solid var(--rule);
+  }
+  .hero-stat-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 56px;
+    color: var(--paper);
+    line-height: 1;
+  }
+  .hero-stat-num.accent { color: var(--accent); }
+  .hero-stat-label { font-size: 13px; margin-top: 4px; color: rgba(244,241,234,0.85); }
+  .hero-stat-src {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; margin-top: 4px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(244,241,234,0.4);
+  }
+  .hero-bottom {
+    margin-top: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244,241,234,0.5);
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+  }
+  .hero-bottom-nav { display: flex; gap: 32px; }
+
+  /* ── CRISIS ── */
+  #crisis {
+    background: var(--bg);
+    padding: 120px 48px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .crisis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 80px;
+  }
+  .crisis-card {
+    border: 1px solid var(--rule);
+    padding: 40px 36px;
+    position: relative;
+    background: linear-gradient(180deg, rgba(255,74,28,0.04), transparent);
+  }
+  .crisis-card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent-2); margin-bottom: 24px;
+  }
+  .crisis-card-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 32px; font-weight: 900; margin-bottom: 32px;
+  }
+  .crisis-stat {
+    font-family: 'Anton', sans-serif;
+    font-size: 80px; color: var(--accent-2); line-height: 0.9;
+  }
+  .crisis-stat-row {
+    display: flex; align-items: baseline; gap: 16px;
+    margin-bottom: 32px; flex-wrap: wrap;
+  }
+  .crisis-stat-label { font-size: 13px; color: rgba(244,241,234,0.7); max-width: 200px; }
+  .crisis-body { font-size: 15px; line-height: 1.85; color: rgba(244,241,234,0.85); margin-bottom: 20px; }
+  .crisis-consequence {
+    border-left: 3px solid var(--accent-2);
+    padding-left: 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(244,241,234,0.95);
+  }
+  .crisis-consequence-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--accent-2); display: block; margin-bottom: 4px;
+  }
+  .crisis-box {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    padding: 48px;
+    position: relative;
+  }
+  .crisis-box-label {
+    position: absolute; top: -10px; left: 32px;
+    background: var(--bg); padding: 0 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+  .chain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .chain-step {
+    padding: 0 32px;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .chain-step:last-child { border-right: none; }
+  .chain-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 64px; color: var(--paper); line-height: 1;
+  }
+  .chain-label { font-size: 14px; margin-top: 12px; color: rgba(244,241,234,0.85); }
+  .chain-arrow {
+    position: absolute; right: -8px; top: 50%;
+    transform: translateY(-50%);
+    background: var(--bg-2);
+    color: var(--accent);
+    font-size: 16px;
+  }
+  .crisis-note {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 14px;
+    color: rgba(244,241,234,0.7);
+    line-height: 1.8;
+  }
+
+  /* ── CONCEPT ── */
+  #concept {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 120px 48px;
+    position: relative;
+    border-bottom: 1px solid var(--rule-dark);
+  }
+  #concept .section-head .num { color: var(--ink); }
+  #concept .section-head .line { background: rgba(0,0,0,0.15); }
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .concept-eyebrow {
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    color: var(--accent-2);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .concept-h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .concept-h2 .hl-inv {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0 0.18em;
+    display: inline-block;
+    line-height: 1.1;
+  }
+  .concept-body {
+    font-size: 19px; line-height: 1.85; margin-top: 40px; max-width: 620px;
+    color: rgba(0,0,0,0.78);
+  }
+  .concept-tags {
+    margin-top: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .concept-tag {
+    padding: 8px 16px;
+    border: 1px solid rgba(0,0,0,0.25);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.05em;
+    color: var(--ink);
+    background: transparent;
+  }
+  .value-card {
+    padding: 24px 0;
+    border-top: 1px solid rgba(0,0,0,0.15);
+  }
+  .value-card.last { border-bottom: 1px solid rgba(0,0,0,0.15); }
+  .value-card-top { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+  .value-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em; color: var(--accent-2);
+  }
+  .value-big {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 28px; font-weight: 900; color: var(--ink);
+  }
+  .value-body { font-size: 14px; line-height: 1.8; color: rgba(0,0,0,0.7); }
+  .flywheel {
+    margin-top: 100px;
+    padding: 48px 56px;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+  }
+  .flywheel-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent); margin-bottom: 20px;
+  }
+  .flywheel-text {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(20px, 2.4vw, 30px);
+    line-height: 1.7;
+    font-weight: 500;
+    color: var(--paper);
+  }
+  .flywheel-text .ac { color: var(--accent); }
+
+  /* ── CYCLE ── */
+  #cycle {
+    background: var(--bg);
+    padding: 120px 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .cycle-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .cycle-svg-wrap {
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+  }
+  .cycle-panel {
+    border: 1px solid var(--rule);
+    padding: 36px;
+    min-height: 420px;
+    background: linear-gradient(180deg, rgba(232,255,58,0.03), transparent);
+  }
+  .cycle-panel-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent); margin-bottom: 12px;
+  }
+  .cycle-panel-name {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 40px; font-weight: 900; margin-bottom: 28px;
+  }
+  .cycle-detail-row {
+    padding: 16px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .cycle-detail-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em;
+    color: rgba(244,241,234,0.5);
+    margin-bottom: 6px;
+  }
+  .cycle-detail-label.accent { color: var(--accent); }
+  .cycle-detail-value { font-size: 15px; line-height: 1.75; color: rgba(244,241,234,0.85); }
+  .cycle-default-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 32px; font-weight: 900; margin-bottom: 24px;
+  }
+  .cycle-reasons { list-style: none; display: flex; flex-direction: column; gap: 14px; padding: 0; }
+  .cycle-reason { display: flex; gap: 14px; font-size: 14px; }
+  .cycle-reason-num { font-family: 'JetBrains Mono', monospace; color: var(--accent); min-width: 24px; }
+  .cycle-reason-text { color: rgba(244,241,234,0.85); }
+
+  /* ── CASES ── */
+  #cases {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 120px 48px;
+    border-bottom: 1px solid var(--rule-dark);
+  }
+  #cases .section-head .num { color: var(--ink); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.2em; font-weight: 500; }
+  #cases .section-head .line { background: rgba(0,0,0,0.15); }
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 0;
+    border: 1px solid var(--ink);
+    margin-top: 64px;
+  }
+  .case-card {
+    padding: 32px 28px;
+    border-right: 1px solid rgba(0,0,0,0.12);
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    background: transparent;
+    color: var(--ink);
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+  }
+  .case-card.highlight {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .case-card-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 20px;
+  }
+  .case-n {
+    font-family: 'Anton', sans-serif;
+    font-size: 56px; line-height: 0.9;
+    color: var(--ink);
+  }
+  .case-card.highlight .case-n { color: var(--accent); }
+  .case-country {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    opacity: 0.55;
+  }
+  .case-card.highlight .case-country { opacity: 0.7; }
+  .case-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px; font-weight: 900; margin-bottom: 8px; line-height: 1.3;
+  }
+  .case-motive {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em;
+    color: var(--accent-2);
+    margin-bottom: 20px;
+  }
+  .case-card.highlight .case-motive { color: var(--accent); }
+  .case-stat-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+  .case-stat {
+    font-family: 'Anton', sans-serif;
+    font-size: 44px; line-height: 0.9;
+  }
+  .case-stat-label { font-size: 11px; opacity: 0.7; }
+  .case-body { font-size: 13px; line-height: 1.7; opacity: 0.85; margin-bottom: auto; }
+  .case-link {
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid rgba(0,0,0,0.15);
+    font-size: 12px; line-height: 1.6;
+  }
+  .case-card.highlight .case-link { border-top-color: rgba(232,255,58,0.3); }
+  .case-link-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.16em;
+    color: var(--accent-2); display: block; margin-bottom: 4px;
+  }
+  .case-card.highlight .case-link-label { color: var(--accent); }
+
+  /* ── COST ── */
+  #cost {
+    background: var(--bg);
+    padding: 120px 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .cost-phase-table {
+    border: 1px solid var(--rule);
+    margin-bottom: 80px;
+  }
+  .cost-table-header {
+    display: grid;
+    grid-template-columns: 1.2fr 1.4fr 1fr 1fr 1.2fr;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--accent);
+    background: var(--bg-2);
+  }
+  .cost-phase-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1.4fr 1fr 1fr 1.2fr;
+    padding: 28px 24px;
+    border-bottom: 1px solid var(--rule);
+    align-items: center;
+  }
+  .cost-phase-row:last-child { border-bottom: none; }
+  .cost-phase-name {
+    font-family: 'Anton', sans-serif; font-size: 32px; line-height: 1;
+  }
+  .cost-phase-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: rgba(244,241,234,0.5); margin-top: 4px;
+  }
+  .cost-mono { font-family: 'JetBrains Mono', monospace; font-size: 18px; }
+  .cost-delta { font-family: 'Anton', sans-serif; font-size: 28px; line-height: 1; }
+  .cost-delta.neg { color: var(--accent-2); }
+  .cost-delta.mid { color: var(--paper); }
+  .cost-delta.pos { color: var(--accent); }
+  .cost-delta-label { font-size: 11px; color: rgba(244,241,234,0.5); margin-top: 4px; }
+  .cost-bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 48px;
+  }
+  .cost-detail-box {
+    border: 1px solid var(--rule);
+    padding: 32px;
+    background: var(--bg-2);
+  }
+  .cost-detail-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent-2); margin-bottom: 16px;
+  }
+  .cost-detail-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 24px; font-weight: 900; margin-bottom: 24px;
+  }
+  .cost-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+  }
+  .cost-row-k { color: rgba(244,241,234,0.85); }
+  .cost-row-v { font-family: 'JetBrains Mono', monospace; }
+  .cost-total {
+    display: flex; justify-content: space-between;
+    padding: 14px 0 0;
+    font-size: 16px; font-weight: 700;
+  }
+  .cost-total-v { font-family: 'JetBrains Mono', monospace; color: var(--accent); }
+  .revenue-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .revenue-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 24px; font-weight: 900; margin-bottom: 24px;
+  }
+  .revenue-table { border: 1px solid var(--rule); }
+  .revenue-header {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr 1.4fr 0.8fr 0.8fr 1fr;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.16em;
+    color: var(--accent);
+    background: var(--bg-2);
+  }
+  .revenue-row {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr 1.4fr 0.8fr 0.8fr 1fr;
+    padding: 20px 18px;
+    border-bottom: 1px solid var(--rule);
+    align-items: center;
+    font-size: 13px;
+  }
+  .revenue-row:last-child { border-bottom: none; }
+  .revenue-layer { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 12px; }
+  .revenue-name { font-weight: 700; }
+  .revenue-unit { color: rgba(244,241,234,0.65); font-size: 12px; }
+  .revenue-p1 { font-family: 'JetBrains Mono', monospace; color: rgba(244,241,234,0.5); }
+  .revenue-p2 { font-family: 'JetBrains Mono', monospace; }
+  .revenue-p3 { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-weight: 700; }
+  .revenue-note { margin-top: 24px; font-size: 13px; color: rgba(244,241,234,0.6); line-height: 1.7; }
+
+  /* ── MOAT ── */
+  #moat {
+    background: var(--bg);
+    padding: 120px 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .moat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin-bottom: 100px;
+  }
+  .moat-card {
+    padding: 48px 36px;
+    border-right: 1px solid var(--rule);
+    position: relative;
+    min-height: 360px;
+    display: flex; flex-direction: column;
+  }
+  .moat-card:last-child { border-right: none; }
+  .moat-reason {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.22em;
+    color: var(--accent); margin-bottom: 32px;
+  }
+  .moat-stat {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(80px, 9vw, 132px);
+    line-height: 0.9;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .moat-stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: rgba(244,241,234,0.5);
+    letter-spacing: 0.1em; margin-bottom: 32px;
+  }
+  .moat-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px; font-weight: 900; margin-bottom: 16px; line-height: 1.3;
+  }
+  .moat-body { font-size: 14px; line-height: 1.8; color: rgba(244,241,234,0.75); }
+  .why-now {
+    padding: 64px 56px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .why-now-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.22em;
+    color: var(--accent-2); margin-bottom: 16px;
+  }
+  .why-now-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.2; font-weight: 900;
+    margin-bottom: 48px; max-width: 900px;
+  }
+  .why-now-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .why-now-num {
+    font-family: 'Anton', sans-serif; font-size: 56px;
+    color: var(--accent-2); line-height: 0.9; margin-bottom: 16px;
+  }
+  .why-now-item-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px; font-weight: 900; margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .why-now-body { font-size: 14px; line-height: 1.8; color: rgba(0,0,0,0.7); }
+
+  /* ── ROADMAP ── */
+  #roadmap {
+    background: var(--bg);
+    padding: 120px 48px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin-bottom: 80px;
+  }
+  .road-card {
+    padding: 32px 28px;
+    border-right: 1px solid var(--rule);
+    min-height: 460px;
+    display: flex; flex-direction: column;
+    position: relative;
+  }
+  .road-card:last-child { border-right: none; }
+  .road-card.active { background: rgba(255,74,28,0.04); }
+  .road-stripe {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .road-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    margin-bottom: 8px; margin-top: 16px;
+  }
+  .road-phase {
+    font-family: 'Anton', sans-serif;
+    font-size: 36px; line-height: 1; margin-bottom: 4px;
+  }
+  .road-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: rgba(244,241,234,0.5); margin-bottom: 20px;
+  }
+  .road-heading {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px; font-weight: 900; margin-bottom: 24px; line-height: 1.3;
+  }
+  .road-row { margin-bottom: 16px; }
+  .road-row-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.16em;
+    color: rgba(244,241,234,0.45); margin-bottom: 4px;
+  }
+  .road-row-value { font-size: 13px; line-height: 1.6; color: rgba(244,241,234,0.95); }
+  .road-milestone { margin-top: auto; padding-top: 16px; }
+  .road-milestone-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.16em; margin-bottom: 4px;
+  }
+  .road-milestone-value { font-size: 13px; line-height: 1.6; }
+  .steps-box {
+    background: var(--bg-2);
+    border: 1px solid var(--rule);
+    padding: 48px;
+  }
+  .steps-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.22em;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .steps-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 24px; font-weight: 900; margin-bottom: 32px; line-height: 1.3;
+  }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+  }
+  .step-item {
+    padding: 20px 16px 20px 0;
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+  .step-item:first-child { padding-left: 0; }
+  .step-item:not(:first-child) { padding-left: 16px; }
+  .step-item:last-child { border-right: none; }
+  .step-num {
+    font-family: 'Anton', sans-serif; font-size: 32px;
+    color: rgba(244,241,234,0.4);
+    line-height: 1; margin-bottom: 8px;
+  }
+  .step-num.accent { color: var(--accent); }
+  .step-text { font-size: 12px; line-height: 1.6; color: rgba(244,241,234,0.85); }
+
+  /* ── CTA ── */
+  #cta {
+    background: var(--accent);
+    color: var(--ink);
+    padding: 120px 48px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-bg-type {
+    position: absolute; right: -60px; top: -40px;
+    font-size: clamp(180px, 30vw, 520px);
+    line-height: 0.85;
+    font-family: 'Anton', sans-serif;
+    color: rgba(0,0,0,0.06);
+    pointer-events: none;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .cta-inner { max-width: 1400px; margin: 0 auto; position: relative; }
+  .cta-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.22em; margin-bottom: 32px;
+    color: var(--ink);
+  }
+  .cta-h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(48px, 7.5vw, 120px);
+    line-height: 1.02;
+    font-weight: 900;
+    margin-bottom: 48px;
+    color: var(--ink);
+  }
+  .cta-h2 .hl-inv {
+    background: var(--ink); color: var(--accent);
+    padding: 0 0.18em; display: inline-block; line-height: 1.1;
+  }
+  .cta-body {
+    font-size: 19px; line-height: 1.85; max-width: 720px; margin-bottom: 56px;
+    color: rgba(0,0,0,0.78);
+  }
+  .cta-buttons { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 64px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 20px 32px;
+    background: var(--ink); color: var(--accent);
+    text-decoration: none;
+    font-size: 16px; font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 20px 32px;
+    background: transparent; color: var(--ink);
+    border: 2px solid var(--ink);
+    text-decoration: none;
+    font-size: 16px; font-weight: 700;
+  }
+  .btn-arrow { font-family: 'JetBrains Mono', monospace; font-size: 13px; opacity: 0.7; }
+  .cta-meta-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px; padding-top: 56px;
+    border-top: 1px solid rgba(0,0,0,0.2);
+  }
+  .cta-meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em; margin-bottom: 8px; opacity: 0.6;
+  }
+  .cta-meta-body { font-size: 14px; line-height: 1.8; }
+  .cta-foot {
+    margin-top: 80px; padding-top: 32px;
+    border-top: 1px solid rgba(0,0,0,0.2);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--ink);
+  }
+
+  /* ── SECTION SPACING ── */
+  .inner { max-width: 1400px; margin: 0 auto; }
+  .section-h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(36px, 5vw, 72px);
+    line-height: 1.15;
+    font-weight: 900;
+    margin-top: 32px; margin-bottom: 24px;
+    max-width: 1100px;
+  }
+  .section-lead {
+    font-size: 17px;
+    color: rgba(244,241,234,0.65);
+    max-width: 760px;
+    margin-bottom: 64px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #hero { padding: 24px 24px 40px; }
+    .hero-main { grid-template-columns: 1fr; margin-top: 48px; }
+    .hero-stats { padding-left: 0; border-left: none; border-top: 1px solid var(--rule); padding-top: 32px; flex-direction: row; flex-wrap: wrap; gap: 24px; }
+    .hero-bottom-nav { display: none; }
+    #crisis, #concept, #cycle, #cases, #cost, #moat, #roadmap, #cta { padding: 72px 24px; }
+    .crisis-grid { grid-template-columns: 1fr; }
+    .chain-grid { grid-template-columns: 1fr; gap: 24px; }
+    .chain-step { border-right: none; border-bottom: 1px solid var(--rule); padding: 0 0 24px; }
+    .chain-arrow { display: none; }
+    .concept-grid { grid-template-columns: 1fr; gap: 48px; }
+    .cycle-grid { grid-template-columns: 1fr; }
+    .cases-grid { grid-template-columns: 1fr; }
+    .cost-bottom-grid { grid-template-columns: 1fr; }
+    .cost-table-header { display: none; }
+    .cost-phase-row { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .moat-grid { grid-template-columns: 1fr; }
+    .moat-card { border-right: none; border-bottom: 1px solid var(--rule); }
+    .why-now-grid { grid-template-columns: 1fr; gap: 32px; }
+    .roadmap-grid { grid-template-columns: 1fr 1fr; }
+    .road-card { border-right: none; border-bottom: 1px solid var(--rule); }
+    .steps-grid { grid-template-columns: repeat(3, 1fr); }
+    .cta-meta-grid { grid-template-columns: 1fr; }
+    .revenue-header { display: none; }
+    .revenue-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+  }
 </style>
 </head>
 <body>
-<div id="root"></div>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-topbar">
+    <div class="hero-topbar-left">
+      <span class="hero-dot"></span>
+      <span>株式会社トワール</span>
+      <span style="opacity:0.4">×</span>
+      <span>SVリーグ</span>
+    </div>
+    <div class="hero-topbar-right mono">
+      <span>共創提案 v8</span>
+      <span>2026.04</span>
+      <span style="color:var(--accent)">CONFIDENTIAL</span>
+    </div>
+  </div>
 
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel" src="components/Hero.jsx"></script>
-<script type="text/babel" src="components/Crisis.jsx"></script>
-<script type="text/babel" src="components/Concept.jsx"></script>
-<script type="text/babel" src="components/Cycle.jsx"></script>
-<script type="text/babel" src="components/Cases.jsx"></script>
-<script type="text/babel" src="components/Cost.jsx"></script>
-<script type="text/babel" src="components/Moat.jsx"></script>
-<script type="text/babel" src="components/Roadmap.jsx"></script>
-<script type="text/babel" src="components/CTA.jsx"></script>
-<script type="text/babel" src="app.jsx"></script>
+  <div class="hero-bg-type">TROIS-RE</div>
+
+  <div class="hero-main">
+    <div>
+      <div class="hero-badge mono">
+        <span class="hero-badge-dot"></span>
+        FOR SV LEAGUE EXECUTIVES
+      </div>
+      <h1 class="hero-h1">
+        子供が毎日、<br>
+        <span class="hl">スポーツできる</span><br>
+        持続可能な仕組み。
+      </h1>
+      <p class="hero-sub">
+        部活動が消える。地域移行は進まない。けれど、SVリーグが動けば、5〜10年後のファン基盤と競技人口を、今から育てる仕組みを作れる。
+      </p>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num display">76%</div>
+        <div class="hero-stat-label">部活動の指導者確保が困難と回答した自治体</div>
+        <div class="hero-stat-src mono">SOURCE / スポーツ庁 2024</div>
+      </div>
+      <div>
+        <div class="hero-stat-num display">20%↓</div>
+        <div class="hero-stat-label">中学校部活動の参加生徒数（直近10年）</div>
+        <div class="hero-stat-src mono">SOURCE / 日本中学校体育連盟</div>
+      </div>
+      <div>
+        <div class="hero-stat-num display accent">¥0</div>
+        <div class="hero-stat-label">子供・保護者の参加費</div>
+        <div class="hero-stat-src mono">SOURCE / トワールモデル</div>
+      </div>
+      <div>
+        <div class="hero-stat-num display">40万</div>
+        <div class="hero-stat-label">蓄積されたNOCC心理データ（人）</div>
+        <div class="hero-stat-src mono">SOURCE / トワール社実績</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bottom mono">
+    <span>SCROLL ↓</span>
+    <div class="hero-bottom-nav">
+      <span>01 — 危機</span>
+      <span>02 — 提案</span>
+      <span>03 — 仕組み</span>
+      <span>04 — 事例</span>
+      <span>05 — 経済性</span>
+      <span>06 — 護城河</span>
+      <span>07 — 計画</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CRISIS ── -->
+<section id="crisis">
+  <div class="inner">
+    <div class="section-head">
+      <span class="num mono">— 01 / THE CRISIS</span>
+      <span class="line"></span>
+      <span class="jp">危機</span>
+    </div>
+
+    <h2 class="section-h2 display-jp">
+      部活動の地域移行で、<br>
+      <span style="color:var(--accent-2)">5〜10年後のファン基盤と競技人口</span>が、<br>
+      いま静かに崩れ始めている。
+    </h2>
+
+    <div class="crisis-grid">
+      <div class="crisis-card">
+        <div class="crisis-card-label mono">課題 / 01</div>
+        <h3 class="crisis-card-title display-jp">スポーツ人口の急減</h3>
+        <div class="crisis-stat-row">
+          <span class="crisis-stat display">20%↓</span>
+          <span class="crisis-stat-label">中学校部活動 参加生徒数（10年間）</span>
+        </div>
+        <p class="crisis-body">地域移行後の受け皿が整備されなければ、子供のスポーツ参加率はさらに低下する。</p>
+        <div class="crisis-consequence">
+          <span class="crisis-consequence-label mono">放置するとどうなるか</span>
+          ファン予備軍が育たない。5〜10年後にホームゲーム観客数・競技人口が構造的に縮小する。
+        </div>
+      </div>
+      <div class="crisis-card">
+        <div class="crisis-card-label mono">課題 / 02</div>
+        <h3 class="crisis-card-title display-jp">スポーツ格差の拡大</h3>
+        <div class="crisis-stat-row">
+          <span class="crisis-stat display">¥5,000+</span>
+          <span class="crisis-stat-label">月額の保護者負担（既存の地域移行モデル）</span>
+        </div>
+        <p class="crisis-body">部活動がなくなった後、参加費・用具代が払えない家庭の子供がスポーツから離れていく。</p>
+        <div class="crisis-consequence">
+          <span class="crisis-consequence-label mono">放置するとどうなるか</span>
+          競技人口が減ることで競争力が減少し、リーグの競技水準維持が困難になる。
+        </div>
+      </div>
+    </div>
+
+    <div class="crisis-box">
+      <div class="crisis-box-label mono">なぜ全国で地域移行が進まないのか — 構造的問題</div>
+      <div class="chain-grid">
+        <div class="chain-step">
+          <div class="chain-num display">71.9%</div>
+          <div class="chain-label">指導者の確保が困難</div>
+          <div class="chain-arrow">→</div>
+        </div>
+        <div class="chain-step">
+          <div class="chain-num display">59.4%</div>
+          <div class="chain-label">持続可能な収益構造の構築が困難</div>
+          <div class="chain-arrow">→</div>
+        </div>
+        <div class="chain-step">
+          <div class="chain-num display">週1回</div>
+          <div class="chain-label">コスト高で活動頻度が限界に</div>
+        </div>
+      </div>
+      <p class="crisis-note">
+        外部指導者に委託する前提のため委託費・施設使用料・保険料がかかり、参加費が月額数千〜数万円に上る。<br>
+        その結果、活動頻度は「週1回が限界」となり、子供の定着率が低く、保護者の不満が出て、持続できなくなる。<br>
+        <span class="mono" style="font-size:11px;opacity:0.5;letter-spacing:0.1em">SOURCE / スポーツ庁 2024年フォローアップ調査・現地調査 2025</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONCEPT ── -->
+<section id="concept">
+  <div class="inner">
+    <div class="section-head">
+      <span class="num mono" style="color:var(--ink)">— 02 / THE PROPOSAL</span>
+      <span class="line" style="background:rgba(0,0,0,0.15)"></span>
+      <span class="jp" style="color:rgba(0,0,0,0.5)">提案</span>
+    </div>
+
+    <div class="concept-grid">
+      <div>
+        <div class="concept-eyebrow mono">TROIS-RE MODEL</div>
+        <h2 class="concept-h2">
+          子供が、<br>
+          <span class="hl-inv">毎日</span>、<br>
+          スポーツできる仕組み。
+        </h2>
+        <p class="concept-body">
+          部活動地域移行 × 心理データ × 採用パイプライン。<br>
+          <strong>NOCC心理データを核に、教委・メーカー・採用企業・SVリーグが</strong>「善意に頼らない、ビジネスとして続く仕組み」で関わり続ける。
+        </p>
+        <div class="concept-tags">
+          <span class="concept-tag mono">週5日</span>
+          <span class="concept-tag mono">参加費ゼロ</span>
+          <span class="concept-tag mono">学校体育館</span>
+          <span class="concept-tag mono">月1回の選手派遣</span>
+          <span class="concept-tag mono">NOCC心理データ</span>
+          <span class="concept-tag mono">スマートロック</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="value-card">
+          <div class="value-card-top">
+            <span class="value-num mono">価値 01</span>
+            <span class="value-big display-jp">次世代ファン</span>
+          </div>
+          <p class="value-body">SVリーグがスポーツ環境を地域に届けることで、子供と日常的につながる接点を構築。ファン基盤を育てる。</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-top">
+            <span class="value-num mono">価値 02</span>
+            <span class="value-big display-jp">競技人口</span>
+          </div>
+          <p class="value-body">参加費ゼロのスポーツ環境を地域に届けることで、誰もがバレーボールをできる構築。10年後の競技人口を今から育てる。</p>
+        </div>
+        <div class="value-card last">
+          <div class="value-card-top">
+            <span class="value-num mono">価値 03</span>
+            <span class="value-big display-jp">データ活用</span>
+          </div>
+          <p class="value-body">小学・中学・高校時代の身体・心理データを蓄積。有望選手を客観データで発見できる。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flywheel">
+      <div class="flywheel-label mono">プランの核心 / THE FLYWHEEL</div>
+      <p class="flywheel-text display-jp">
+        <span class="ac">スポンサーが払う</span> →
+        子供が無料でスポーツできる →
+        <span class="ac">NOCCデータで成長が証明される</span> →
+        スポンサーのCSR実績・採用ROIになる →
+        <span class="ac">スポンサーが払い続ける</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CYCLE ── -->
+<section id="cycle">
+  <div class="inner">
+    <div class="section-head">
+      <span class="num mono">— 03 / THE MECHANISM</span>
+      <span class="line"></span>
+      <span class="jp">仕組み</span>
+    </div>
+
+    <h2 class="section-h2 display-jp">
+      <span style="color:var(--accent)">5つのステークホルダー</span>が、<br>
+      自分の課題のために参加し続ける。
+    </h2>
+    <p class="section-lead">トワールが「NOCC心理データの管理者」として中心に位置することで、循環が成立する。ノードをクリックすると詳細が表示されます。</p>
+
+    <div class="cycle-grid">
+      <div class="cycle-svg-wrap">
+        <svg id="cycleSvg" viewBox="0 0 800 800" style="width:100%;height:100%">
+          <circle cx="400" cy="400" r="350" fill="none" stroke="rgba(244,241,234,0.05)" stroke-dasharray="2 6"/>
+          <circle cx="400" cy="400" r="280" fill="none" stroke="rgba(244,241,234,0.1)"/>
+          <!-- spokes -->
+          <line id="sp-sv"      x1="400" y1="400" x2="400" y2="120"  stroke="rgba(244,241,234,0.15)" stroke-width="1" class="spoke"/>
+          <line id="sp-city"    x1="400" y1="400" x2="666" y2="237"  stroke="rgba(244,241,234,0.15)" stroke-width="1" class="spoke"/>
+          <line id="sp-club"    x1="400" y1="400" x2="666" y2="563"  stroke="rgba(244,241,234,0.15)" stroke-width="1" class="spoke"/>
+          <line id="sp-sponsor" x1="400" y1="400" x2="400" y2="680"  stroke="rgba(244,241,234,0.15)" stroke-width="1" class="spoke"/>
+          <line id="sp-maker"   x1="400" y1="400" x2="134" y2="563"  stroke="rgba(244,241,234,0.15)" stroke-width="1" class="spoke"/>
+          <!-- center -->
+          <circle cx="400" cy="400" r="86" fill="var(--accent)"/>
+          <text x="400" y="394" text-anchor="middle" font-family="Anton, sans-serif" font-size="28" fill="#0A0A0A">TROIS-RE</text>
+          <text x="400" y="416" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="13" font-weight="700" fill="#0A0A0A">NOCC心理データ</text>
+          <text x="400" y="434" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="rgba(0,0,0,0.6)">THE HUB</text>
+          <!-- nodes -->
+          <g class="node" data-id="sv" style="cursor:pointer">
+            <circle cx="400" cy="120" r="70" fill="var(--bg-2)" stroke="rgba(244,241,234,0.3)" stroke-width="1"/>
+            <text x="400" y="116" text-anchor="middle" font-family="Noto Sans JP" font-size="14" font-weight="700" fill="var(--paper)">SVリーグ</text>
+            <text x="400" y="134" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="1" fill="rgba(244,241,234,0.5)">PRO LEAGUE</text>
+          </g>
+          <g class="node" data-id="city" style="cursor:pointer">
+            <circle cx="666" cy="237" r="70" fill="var(--bg-2)" stroke="rgba(244,241,234,0.3)" stroke-width="1"/>
+            <text x="666" y="229" text-anchor="middle" font-family="Noto Sans JP" font-size="12" font-weight="700" fill="var(--paper)">市・教育</text>
+            <text x="666" y="247" text-anchor="middle" font-family="Noto Sans JP" font-size="12" font-weight="700" fill="var(--paper)">委員会</text>
+            <text x="666" y="263" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="1" fill="rgba(244,241,234,0.5)">CITY</text>
+          </g>
+          <g class="node" data-id="club" style="cursor:pointer">
+            <circle cx="666" cy="563" r="70" fill="var(--bg-2)" stroke="rgba(244,241,234,0.3)" stroke-width="1"/>
+            <text x="666" y="557" text-anchor="middle" font-family="Noto Sans JP" font-size="14" font-weight="700" fill="var(--paper)">所属チーム</text>
+            <text x="666" y="575" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="1" fill="rgba(244,241,234,0.5)">CLUBS</text>
+          </g>
+          <g class="node" data-id="sponsor" style="cursor:pointer">
+            <circle cx="400" cy="680" r="70" fill="var(--bg-2)" stroke="rgba(244,241,234,0.3)" stroke-width="1"/>
+            <text x="400" y="672" text-anchor="middle" font-family="Noto Sans JP" font-size="12" font-weight="700" fill="var(--paper)">スポンサー</text>
+            <text x="400" y="690" text-anchor="middle" font-family="Noto Sans JP" font-size="12" font-weight="700" fill="var(--paper)">企業</text>
+            <text x="400" y="706" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="1" fill="rgba(244,241,234,0.5)">SPONSORS</text>
+          </g>
+          <g class="node" data-id="maker" style="cursor:pointer">
+            <circle cx="134" cy="563" r="70" fill="var(--bg-2)" stroke="rgba(244,241,234,0.3)" stroke-width="1"/>
+            <text x="134" y="557" text-anchor="middle" font-family="Noto Sans JP" font-size="12" font-weight="700" fill="var(--paper)">用品</text>
+            <text x="134" y="575" text-anchor="middle" font-family="Noto Sans JP" font-size="12" font-weight="700" fill="var(--paper)">メーカー</text>
+            <text x="134" y="591" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="1" fill="rgba(244,241,234,0.5)">MAKERS</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="cycle-panel" id="cyclePanel">
+        <div class="cycle-panel-label mono">SELECT A NODE →</div>
+        <h3 class="cycle-default-title display-jp">全員が、自分の理由で<br>参加し続ける構造。</h3>
+        <p style="font-size:14px;line-height:1.85;color:rgba(244,241,234,0.7);margin-bottom:24px">循環が成立する3つの理由：</p>
+        <ol class="cycle-reasons">
+          <li class="cycle-reason">
+            <span class="cycle-reason-num mono">01</span>
+            <span class="cycle-reason-text">認知拡大だけではない、人材確保に繋がる仕組み</span>
+          </li>
+          <li class="cycle-reason">
+            <span class="cycle-reason-num mono">02</span>
+            <span class="cycle-reason-text">NOCCデータへのアクセス権という情報の非対称性</span>
+          </li>
+          <li class="cycle-reason">
+            <span class="cycle-reason-num mono">03</span>
+            <span class="cycle-reason-text">スポーツ庁好事例化・自治体取り組みの約束</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CASES ── -->
+<section id="cases">
+  <div class="inner">
+    <div class="section-head">
+      <span class="num mono" style="color:var(--ink)">— 04 / PROVEN MODELS</span>
+      <span class="line" style="background:rgba(0,0,0,0.15)"></span>
+      <span class="jp" style="color:rgba(0,0,0,0.5)">事例</span>
+    </div>
+
+    <h2 class="section-h2 display-jp" style="color:var(--ink)">
+      ゼロから発明した仕組みではない。<br>
+      <span style="background:var(--ink);color:var(--accent);padding:0 0.18em;display:inline-block;line-height:1.15">世界で証明された7つのモデル</span>を組み合わせた。
+    </h2>
+    <p style="font-size:17px;color:rgba(0,0,0,0.65);max-width:760px;margin-bottom:64px">
+      国内外の先行事例が証明した7つのモデルの核心を組み合わせることで、それぞれの限界を超えた設計に。
+    </p>
+
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="case-card-top">
+          <span class="case-n display">01</span>
+          <span class="case-country mono">DE / 🇩🇪</span>
+        </div>
+        <h3 class="case-title display-jp">ドイツ デュアル教育制度</h3>
+        <div class="case-motive mono">動機 / 採用パイプライン構築</div>
+        <div class="case-stat-row">
+          <span class="case-stat display">40万社</span>
+          <span class="case-stat-label">参加企業</span>
+        </div>
+        <p class="case-body">企業が高校生段階から訓練費の約75%を負担し、2〜3年後の採用パイプラインを確保。修了生の約2/3をそのまま採用。</p>
+        <div class="case-link">
+          <span class="case-link-label mono">→ TROIS-RE への接続</span>
+          中学段階から就職前接触。NOCCデータで適性を客観把握
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-card-top">
+          <span class="case-n display">02</span>
+          <span class="case-country mono">US / 🇺🇸</span>
+        </div>
+        <h3 class="case-title display-jp">P-TECH（IBM主導）</h3>
+        <div class="case-motive mono">動機 / 採用パイプライン構築</div>
+        <div class="case-stat-row">
+          <span class="case-stat display">28か国</span>
+          <span class="case-stat-label">展開</span>
+        </div>
+        <p class="case-body">2011年にIBMがニューヨークで開始した官民連携教育モデル。「学歴に関係なく能力で評価される」仕組みを世界展開。</p>
+        <div class="case-link">
+          <span class="case-link-label mono">→ TROIS-RE への接続</span>
+          NOCCデータが「キャリアパスポート」として18歳時点での採用証明書になる
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-card-top">
+          <span class="case-n display">03</span>
+          <span class="case-country mono">US / 🇺🇸</span>
+        </div>
+        <h3 class="case-title display-jp">スターバックス × ASU</h3>
+        <div class="case-motive mono">動機 / 人材教育投資</div>
+        <div class="case-stat-row">
+          <span class="case-stat display">75%</span>
+          <span class="case-stat-label">卒業後の継続勤務率</span>
+        </div>
+        <p class="case-body">従業員向け大学費用100%前払いプログラム（SCAP）。参加者は非参加者の2倍の速度で昇進。</p>
+        <div class="case-link">
+          <span class="case-link-label mono">→ TROIS-RE への接続</span>
+          採用コストを教育投資に転換するROI設計の論拠
+        </div>
+      </div>
+
+      <div class="case-card highlight">
+        <div class="case-card-top">
+          <span class="case-n display">04</span>
+          <span class="case-country mono">US / 🇺🇸</span>
+        </div>
+        <h3 class="case-title display-jp">NFLリーグ財団モデル</h3>
+        <div class="case-motive mono">動機 / ファン予備軍拡大</div>
+        <div class="case-stat-row">
+          <span class="case-stat display">$65M+</span>
+          <span class="case-stat-label">25年間の地域投資</span>
+        </div>
+        <p class="case-body">450か所の運動場を整備。スポンサー収入の一部をリーグ財団に回し地域の子供に還元することでファン予備軍を拡大。</p>
+        <div class="case-link">
+          <span class="case-link-label mono">→ TROIS-RE への接続</span>
+          SVリーグがリーグ財団の役割を担う循環設計
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-card-top">
+          <span class="case-n display">05</span>
+          <span class="case-country mono">JP / 🇯🇵</span>
+        </div>
+        <h3 class="case-title display-jp">FC今治 ふるさと納税</h3>
+        <div class="case-motive mono">動機 / 税制メリット活用</div>
+        <div class="case-stat-row">
+          <span class="case-stat display">実質1割</span>
+          <span class="case-stat-label">企業負担</span>
+        </div>
+        <p class="case-body">岡田武史代表のFC今治が今治市と連携し企業版ふるさと納税で「今治市スポーツ振興基金」を設立。</p>
+        <div class="case-link">
+          <span class="case-link-label mono">→ TROIS-RE への接続</span>
+          Phase2以降で採用スポンサー企業の参加スキームに活用
+        </div>
+      </div>
+
+      <div class="case-card highlight">
+        <div class="case-card-top">
+          <span class="case-n display">06</span>
+          <span class="case-country mono">JP / 🇯🇵</span>
+        </div>
+        <h3 class="case-title display-jp">ナガオサッカースクール</h3>
+        <div class="case-motive mono">動機 / 認知拡大・広告</div>
+        <div class="case-stat-row">
+          <span class="case-stat display">17社</span>
+          <span class="case-stat-label">地元スポンサー</span>
+        </div>
+        <p class="case-body">大阪府立長尾高校。地元企業がユニフォームに広告を掲載する代わりにスポンサーとなり、参加費ゼロを実現。</p>
+        <div class="case-link">
+          <span class="case-link-label mono">→ TROIS-RE への接続</span>
+          日本国内で「企業広告×学校施設×データ蓄積→参加費ゼロ」が機能することを証明した最も近い先行事例
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-card-top">
+          <span class="case-n display">07</span>
+          <span class="case-country mono">UK / 🇬🇧</span>
+        </div>
+        <h3 class="case-title display-jp">アストラゼネカ × CU</h3>
+        <div class="case-motive mono">動機 / CSR・採用・社員ES向上</div>
+        <div class="case-stat-row">
+          <span class="case-stat display">8年+</span>
+          <span class="case-stat-label">継続実績</span>
+        </div>
+        <p class="case-body">製薬大手AZが地元クラブと「Active Science」プログラムを実施。CSR・採用候補育成・社員エンゲージメントを同時達成。</p>
+        <div class="case-link">
+          <span class="case-link-label mono">→ TROIS-RE への接続</span>
+          採用スポンサー企業が複数の価値を同時に得られる「多層の利益設計」の原型
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COST ── -->
+<section id="cost">
+  <div class="inner">
+    <div class="section-head">
+      <span class="num mono">— 05 / THE ECONOMICS</span>
+      <span class="line"></span>
+      <span class="jp">経済性</span>
+    </div>
+
+    <h2 class="section-h2 display-jp">
+      赤字を承知で始めて、<br>
+      <span style="color:var(--accent)">5年で4億円規模</span>の事業に育てる。
+    </h2>
+    <p class="section-lead">Phase1は先行投資で346万円の赤字。SaaSで自動化したPhase2で損益分岐、Phase3で大幅黒字化。</p>
+
+    <div class="cost-phase-table">
+      <div class="cost-table-header mono">
+        <span>PHASE</span>
+        <span>規模</span>
+        <span>支出</span>
+        <span>収入</span>
+        <span>収支</span>
+      </div>
+      <div class="cost-phase-row">
+        <div>
+          <div class="cost-phase-name display">Phase 1</div>
+          <div class="cost-phase-year mono">Year 1</div>
+        </div>
+        <div style="font-size:16px">3校 / 150人</div>
+        <div class="cost-mono mono">946万円</div>
+        <div class="cost-mono mono">600万円</div>
+        <div>
+          <div class="cost-delta display neg">▼ 346万</div>
+          <div class="cost-delta-label">先行投資</div>
+        </div>
+      </div>
+      <div class="cost-phase-row">
+        <div>
+          <div class="cost-phase-name display">Phase 2</div>
+          <div class="cost-phase-year mono">Year 2-3</div>
+        </div>
+        <div style="font-size:16px">60校 / 3,000人</div>
+        <div class="cost-mono mono">3,600万円</div>
+        <div class="cost-mono mono">4,000万円</div>
+        <div>
+          <div class="cost-delta display mid">△ 損益分岐</div>
+          <div class="cost-delta-label">SaaSで自動化済</div>
+        </div>
+      </div>
+      <div class="cost-phase-row">
+        <div>
+          <div class="cost-phase-name display">Phase 3</div>
+          <div class="cost-phase-year mono">Year 4-6</div>
+        </div>
+        <div style="font-size:16px">500校 / 25,000人</div>
+        <div class="cost-mono mono">2億円</div>
+        <div class="cost-mono mono">4億円</div>
+        <div>
+          <div class="cost-delta display pos">▲ 黒字化</div>
+          <div class="cost-delta-label">採用パイプライン安定運用</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cost-bottom-grid">
+      <div class="cost-detail-box">
+        <div class="cost-detail-label mono">PHASE 1 / DETAIL</div>
+        <h3 class="cost-detail-title display-jp">Phase1の現金支出内訳</h3>
+        <div class="cost-row"><span class="cost-row-k">SaaS開発（先行投資）</span><span class="cost-row-v mono">¥300万</span></div>
+        <div class="cost-row"><span class="cost-row-k">プロジェクトMG人件費</span><span class="cost-row-v mono">¥300万</span></div>
+        <div class="cost-row"><span class="cost-row-k">スポンサー営業費</span><span class="cost-row-v mono">¥100万</span></div>
+        <div class="cost-row"><span class="cost-row-k">一般管理費 (10%)</span><span class="cost-row-v mono">¥86万</span></div>
+        <div class="cost-row"><span class="cost-row-k">NOCC検査費</span><span class="cost-row-v mono">¥30万</span></div>
+        <div class="cost-row"><span class="cost-row-k">弁護士費用</span><span class="cost-row-v mono">¥30万</span></div>
+        <div class="cost-row"><span class="cost-row-k">コンテンツ制作</span><span class="cost-row-v mono">¥50万</span></div>
+        <div class="cost-row"><span class="cost-row-k">交通費・雑費</span><span class="cost-row-v mono">¥50万</span></div>
+        <div class="cost-total"><span>合計</span><span class="cost-total-v mono">¥946万</span></div>
+      </div>
+
+      <div>
+        <div class="revenue-label mono">4-LAYER REVENUE</div>
+        <h3 class="revenue-title display-jp">スポンサー収入以外の収益構造</h3>
+        <div class="revenue-table">
+          <div class="revenue-header mono">
+            <span>LAYER</span>
+            <span>NAME</span>
+            <span>UNIT</span>
+            <span>P1</span>
+            <span>P2</span>
+            <span>P3</span>
+          </div>
+          <div class="revenue-row">
+            <span class="revenue-layer mono">第1層</span>
+            <span class="revenue-name">検査費</span>
+            <span class="revenue-unit">1人 ¥2,400/年</span>
+            <span class="revenue-p1 mono">~36万</span>
+            <span class="revenue-p2 mono">~720万</span>
+            <span class="revenue-p3 mono">~6,000万</span>
+          </div>
+          <div class="revenue-row">
+            <span class="revenue-layer mono">第2層</span>
+            <span class="revenue-name">レポート費</span>
+            <span class="revenue-unit">50万/社・30万/クラブ</span>
+            <span class="revenue-p1 mono">~60万</span>
+            <span class="revenue-p2 mono">~1,920万</span>
+            <span class="revenue-p3 mono">~5,000万</span>
+          </div>
+          <div class="revenue-row">
+            <span class="revenue-layer mono">第3層</span>
+            <span class="revenue-name">データ・教育費</span>
+            <span class="revenue-unit">閲覧6,800円/採用30万円</span>
+            <span class="revenue-p1 mono">—</span>
+            <span class="revenue-p2 mono">~320万</span>
+            <span class="revenue-p3 mono">~6,000万</span>
+          </div>
+          <div class="revenue-row">
+            <span class="revenue-layer mono">第4層</span>
+            <span class="revenue-name">教材費</span>
+            <span class="revenue-unit">動画レベニューシェア</span>
+            <span class="revenue-p1 mono">—</span>
+            <span class="revenue-p2 mono">~500万</span>
+            <span class="revenue-p3 mono">~5,000万</span>
+          </div>
+        </div>
+        <p class="revenue-note">※ Phase2のSaaS自動化で、人員を増やさず規模を20倍にできることがこのモデルの経済性の核心。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MOAT ── -->
+<section id="moat">
+  <div class="inner">
+    <div class="section-head">
+      <span class="num mono">— 06 / THE MOAT</span>
+      <span class="line"></span>
+      <span class="jp">護城河</span>
+    </div>
+
+    <h2 class="section-h2 display-jp">
+      競合が真似できない<br>
+      <span style="color:var(--accent)">3つの理由。</span>
+    </h2>
+
+    <div class="moat-grid">
+      <div class="moat-card">
+        <div class="moat-reason mono">REASON / 01</div>
+        <div class="moat-stat display">40万+</div>
+        <div class="moat-stat-label mono">蓄積データ（人）</div>
+        <h3 class="moat-title display-jp">延べ40万人の心理データベース</h3>
+        <p class="moat-body">後発が同じデータを作るには10年以上。スポーツ × 中学高校生 × 採用の組み合わせは世界に前例がない。</p>
+      </div>
+      <div class="moat-card">
+        <div class="moat-reason mono">REASON / 02</div>
+        <div class="moat-stat display">6年</div>
+        <div class="moat-stat-label mono">同一個人を追跡</div>
+        <h3 class="moat-title display-jp">縦断的データの蓄積</h3>
+        <p class="moat-body">同一個人を複数年にわたって追跡できる縦断的データは、大手HR企業でも一朝一夕には構築できない。スポーツ × 採用 × 非認知能力という組み合わせは世界初。</p>
+      </div>
+      <div class="moat-card">
+        <div class="moat-reason mono">REASON / 03</div>
+        <div class="moat-stat display">∞</div>
+        <div class="moat-stat-label mono">ネットワーク効果</div>
+        <h3 class="moat-title display-jp">データが蓄積するほど強くなる</h3>
+        <p class="moat-body">参加者が増えるほど予測精度が上がり、競合との差が広がる。離脱した企業はデータを失う。</p>
+      </div>
+    </div>
+
+    <div class="why-now">
+      <div class="why-now-label mono">WHY NOW</div>
+      <h3 class="why-now-title display-jp">今、動くべき3つの理由。</h3>
+      <div class="why-now-grid">
+        <div>
+          <div class="why-now-num display">01</div>
+          <h4 class="why-now-item-title display-jp">タイムリミットが近い</h4>
+          <p class="why-now-body">神戸市・西宮市は2026年9月完全移行。他の団体が先にポジションを取れば機会を失う。</p>
+        </div>
+        <div>
+          <div class="why-now-num display">02</div>
+          <h4 class="why-now-item-title display-jp">スポーツ庁が今最も動いている</h4>
+          <p class="why-now-body">産官学連携フォーラムを開催し民間事業者との連携を積極的に求めている。</p>
+        </div>
+        <div>
+          <div class="why-now-num display">03</div>
+          <h4 class="why-now-item-title display-jp">SVリーグにとって最も合理的な一手</h4>
+          <p class="why-now-body">月1回の選手派遣という最小コストで、多くの子供とデータに基づく継続的な接点を構築できる。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROADMAP ── -->
+<section id="roadmap">
+  <div class="inner">
+    <div class="section-head">
+      <span class="num mono">— 07 / THE PLAN</span>
+      <span class="line"></span>
+      <span class="jp">計画</span>
+    </div>
+
+    <h2 class="section-h2 display-jp">
+      神戸・西宮の<span style="color:var(--accent)">2〜3校</span>から始めて、<br>
+      全国インフラに育てる。
+    </h2>
+
+    <div class="roadmap-grid">
+      <div class="road-card active">
+        <div class="road-stripe" style="background:var(--accent-2)"></div>
+        <div class="road-year mono" style="color:var(--accent-2)">2026.09 START</div>
+        <div class="road-phase display">Phase 1</div>
+        <div class="road-period mono">Year 1</div>
+        <h3 class="road-heading display-jp">実証段階</h3>
+        <div class="road-row">
+          <div class="road-row-label mono">対象</div>
+          <div class="road-row-value">神戸市・西宮市 2〜3校 / 100〜150人</div>
+        </div>
+        <div class="road-row">
+          <div class="road-row-label mono">スポンサー</div>
+          <div class="road-row-value">メーカー1〜2社 + 採用企業1〜2社</div>
+        </div>
+        <div class="road-row">
+          <div class="road-row-label mono">目標</div>
+          <div class="road-row-value">登録承認 / 継続率50%+ / NOCC 300件+</div>
+        </div>
+        <div class="road-milestone">
+          <div class="road-milestone-label mono" style="color:var(--accent-2)">KEY MILESTONE</div>
+          <div class="road-milestone-value">完全セルフ運用SaaS構築</div>
+        </div>
+      </div>
+
+      <div class="road-card">
+        <div class="road-stripe" style="background:var(--accent)"></div>
+        <div class="road-year mono" style="color:var(--accent)">2027 — 2028</div>
+        <div class="road-phase display">Phase 2</div>
+        <div class="road-period mono">Year 2-3</div>
+        <h3 class="road-heading display-jp">展開段階</h3>
+        <div class="road-row">
+          <div class="road-row-label mono">対象</div>
+          <div class="road-row-value">SV全24クラブ / 60校 / 3,000人</div>
+        </div>
+        <div class="road-row">
+          <div class="road-row-label mono">スポンサー</div>
+          <div class="road-row-value">各クラブ地元1〜2社（計24〜48社）</div>
+        </div>
+        <div class="road-row">
+          <div class="road-row-label mono">目標</div>
+          <div class="road-row-value">スポーツ庁好事例掲載 / 採用開始</div>
+        </div>
+        <div class="road-milestone">
+          <div class="road-milestone-label mono" style="color:var(--accent)">KEY MILESTONE</div>
+          <div class="road-milestone-value">プロダクトで動く設計</div>
+        </div>
+      </div>
+
+      <div class="road-card">
+        <div class="road-stripe" style="background:var(--paper)"></div>
+        <div class="road-year mono" style="color:var(--paper)">2029 — 2031</div>
+        <div class="road-phase display">Phase 3</div>
+        <div class="road-period mono">Year 4-6</div>
+        <h3 class="road-heading display-jp">投資回収</h3>
+        <div class="road-row">
+          <div class="road-row-label mono">対象</div>
+          <div class="road-row-value">500校 / 25,000人（中学校 約5%）</div>
+        </div>
+        <div class="road-row">
+          <div class="road-row-label mono">スポンサー</div>
+          <div class="road-row-value">各クラブ12社（計288社）</div>
+        </div>
+        <div class="road-row">
+          <div class="road-row-label mono">目標</div>
+          <div class="road-row-value">採用パイプライン安定運用</div>
+        </div>
+        <div class="road-milestone">
+          <div class="road-milestone-label mono">KEY MILESTONE</div>
+          <div class="road-milestone-value">実証実験完成後に展開</div>
+        </div>
+      </div>
+
+      <div class="road-card">
+        <div class="road-stripe" style="background:var(--paper)"></div>
+        <div class="road-year mono" style="color:var(--paper)">2032 —</div>
+        <div class="road-phase display">Phase 4</div>
+        <div class="road-period mono">Year 7-10</div>
+        <h3 class="road-heading display-jp">全学年展開</h3>
+        <div class="road-row">
+          <div class="road-row-label mono">対象</div>
+          <div class="road-row-value">小・中・高 全国展開</div>
+        </div>
+        <div class="road-row">
+          <div class="road-row-label mono">スポンサー</div>
+          <div class="road-row-value">各クラブ24社（計576社）</div>
+        </div>
+        <div class="road-row">
+          <div class="road-row-label mono">目標</div>
+          <div class="road-row-value">国のインフラとしての安定運用</div>
+        </div>
+        <div class="road-milestone">
+          <div class="road-milestone-label mono">KEY MILESTONE</div>
+          <div class="road-milestone-value">完成形へ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-box">
+      <div class="steps-label mono">「鶏と卵」を突破する正しい順番 / 6 STEPS</div>
+      <h3 class="steps-title display-jp">稟議が通りやすい環境を整えてから動く</h3>
+      <div class="steps-grid">
+        <div class="step-item">
+          <div class="step-num display">01</div>
+          <div class="step-text">神戸市・西宮市教委への事前相談</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num display">02</div>
+          <div class="step-text">スポーツ用品メーカーへのアプローチ</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num display">03</div>
+          <div class="step-text">スポンサー企業の確定</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num display">04</div>
+          <div class="step-text">SVリーグ参加チームへのアプローチ</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num display accent">05</div>
+          <div class="step-text">Phase1スタート（2026年9月）</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num display">06</div>
+          <div class="step-text">スポーツ庁好事例申請</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta">
+  <div class="cta-bg-type">2026.09</div>
+  <div class="cta-inner">
+    <div class="cta-eyebrow mono">— 08 / NEXT STEP</div>
+    <h2 class="cta-h2">
+      まず、<br>
+      <span class="hl-inv">提案書全文</span>を<br>
+      ご一読ください。
+    </h2>
+    <p class="cta-body">
+      このページは要点の抜粋です。23ページの提案書には、本プランの全設計・契約条件・リスク対応・SVリーグと協議すべき事項が記載されています。
+    </p>
+    <div class="cta-buttons">
+      <a href="trois-re_sv_plan_v8.pdf" download class="btn-primary">
+        <span>提案書 PDF をダウンロード</span>
+        <span class="btn-arrow mono">↓ 23P</span>
+      </a>
+      <a href="trois-re_sv_plan_v8.pdf" target="_blank" rel="noopener" class="btn-ghost">
+        ブラウザで開く →
+      </a>
+    </div>
+    <div class="cta-meta-grid">
+      <div>
+        <div class="cta-meta-label mono">提案書に含まれる</div>
+        <div class="cta-meta-body">5ステークホルダー設計 / 7事例詳細 / 4層収益構造 / Phase別ロードマップ / リスクと解決策 / SV協議事項12項目</div>
+      </div>
+      <div>
+        <div class="cta-meta-label mono">論点</div>
+        <div class="cta-meta-body">既存スポンサーとの差別化 / 各クラブへの接続 / 動画権利帰属 / データ利用範囲 / 教委へのアプローチ</div>
+      </div>
+      <div>
+        <div class="cta-meta-label mono">連絡先</div>
+        <div class="cta-meta-body">株式会社トワール<br>共創提案 v8 / 2026年4月<br>CONFIDENTIAL</div>
+      </div>
+    </div>
+    <div class="cta-foot mono">
+      <span>TROIS-RE × SV LEAGUE</span>
+      <span>子供が毎日スポーツできる持続可能な仕組みを全国へ</span>
+      <span>© 2026 TROIS-RE</span>
+    </div>
+  </div>
+</section>
+
+<script>
+// Cycle interactive nodes
+const stakeholders = {
+  sv:      { sub: 'PRO LEAGUE', name: 'SVリーグ',    problem: 'スポーツ人口の減少と格差拡大による市場の減退。', gives: 'OB/OG・選手の派遣 / 月1回指導セッション', gets: '次世代ファン基盤 + NOCCデータでユース発掘精度向上' },
+  city:    { sub: 'CITY',       name: '市・教育委員会', problem: '地域移行の受け皿不足。指導者・資金・施設管理が課題。', gives: '体育館の開放 / 登録承認 / 広報協力', gets: '低予算で地域移行が実現。先生の負担ゼロ' },
+  club:    { sub: 'CLUBS',      name: '所属チーム',   problem: '地域との接点が薄く、子供世代のファン獲得機会が少ない。', gives: 'OB/OG派遣 / 指導動画の制作', gets: 'ファン獲得 + 動画レベニューシェア収益' },
+  sponsor: { sub: 'SPONSORS',   name: 'スポンサー企業', problem: '採用コスト高騰・ミスマッチ・早期離職の増加。', gives: '協賛金 / 管理者派遣 / データ閲覧料', gets: '将来の採用候補と6年間の継続的関係構築' },
+  maker:   { sub: 'MAKERS',     name: '用品メーカー', problem: '部活動縮小による次世代との接点喪失。', gives: '用具・シューズ・ウェアの現物提供', gets: 'CSR実績・ESG評価 / 次世代ブランドロイヤリティ' },
+};
+
+const spokeMap = { sv: 'sp-sv', city: 'sp-city', club: 'sp-club', sponsor: 'sp-sponsor', maker: 'sp-maker' };
+let active = null;
+
+const panel = document.getElementById('cyclePanel');
+
+function renderPanel(id) {
+  const s = stakeholders[id];
+  panel.innerHTML = `
+    <div class="cycle-panel-label mono">STAKEHOLDER / ${s.sub}</div>
+    <h3 class="cycle-panel-name display-jp">${s.name}</h3>
+    <div class="cycle-detail-row">
+      <div class="cycle-detail-label mono">参加する理由（課題）</div>
+      <div class="cycle-detail-value">${s.problem}</div>
+    </div>
+    <div class="cycle-detail-row">
+      <div class="cycle-detail-label mono">このプランに提供するもの</div>
+      <div class="cycle-detail-value">${s.gives}</div>
+    </div>
+    <div class="cycle-detail-row">
+      <div class="cycle-detail-label accent mono">このプランで得られる価値</div>
+      <div class="cycle-detail-value" style="color:var(--paper)">${s.gets}</div>
+    </div>`;
+}
+
+function renderDefault() {
+  panel.innerHTML = `
+    <div class="cycle-panel-label mono">SELECT A NODE →</div>
+    <h3 class="cycle-default-title display-jp">全員が、自分の理由で<br>参加し続ける構造。</h3>
+    <p style="font-size:14px;line-height:1.85;color:rgba(244,241,234,0.7);margin-bottom:24px">循環が成立する3つの理由：</p>
+    <ol class="cycle-reasons">
+      <li class="cycle-reason"><span class="cycle-reason-num mono">01</span><span class="cycle-reason-text">認知拡大だけではない、人材確保に繋がる仕組み</span></li>
+      <li class="cycle-reason"><span class="cycle-reason-num mono">02</span><span class="cycle-reason-text">NOCCデータへのアクセス権という情報の非対称性</span></li>
+      <li class="cycle-reason"><span class="cycle-reason-num mono">03</span><span class="cycle-reason-text">スポーツ庁好事例化・自治体取り組みの約束</span></li>
+    </ol>`;
+}
+
+document.querySelectorAll('.node').forEach(g => {
+  const id = g.dataset.id;
+  const circle = g.querySelector('circle');
+  const texts = g.querySelectorAll('text');
+  const spoke = document.getElementById(spokeMap[id]);
+
+  g.addEventListener('click', () => {
+    if (active === id) {
+      active = null;
+      circle.setAttribute('fill', 'var(--bg-2)');
+      circle.setAttribute('stroke', 'rgba(244,241,234,0.3)');
+      circle.setAttribute('r', '70');
+      texts.forEach(t => t.setAttribute('fill', 'var(--paper)'));
+      if (spoke) { spoke.setAttribute('stroke', 'rgba(244,241,234,0.15)'); spoke.setAttribute('stroke-width', '1'); }
+      renderDefault();
+    } else {
+      // Reset previous
+      if (active) {
+        const prevG = document.querySelector(`.node[data-id="${active}"]`);
+        if (prevG) {
+          prevG.querySelector('circle').setAttribute('fill', 'var(--bg-2)');
+          prevG.querySelector('circle').setAttribute('stroke', 'rgba(244,241,234,0.3)');
+          prevG.querySelector('circle').setAttribute('r', '70');
+          prevG.querySelectorAll('text').forEach(t => t.setAttribute('fill', 'var(--paper)'));
+        }
+        const prevSpoke = document.getElementById(spokeMap[active]);
+        if (prevSpoke) { prevSpoke.setAttribute('stroke', 'rgba(244,241,234,0.15)'); prevSpoke.setAttribute('stroke-width', '1'); }
+      }
+      active = id;
+      circle.setAttribute('fill', 'var(--paper)');
+      circle.setAttribute('stroke', 'var(--accent)');
+      circle.setAttribute('stroke-width', '2');
+      circle.setAttribute('r', '78');
+      texts.forEach(t => t.setAttribute('fill', 'var(--ink)'));
+      if (spoke) { spoke.setAttribute('stroke', 'var(--accent)'); spoke.setAttribute('stroke-width', '2'); }
+      renderPanel(id);
+    }
+  });
+});
+</script>
 </body>
 </html>
